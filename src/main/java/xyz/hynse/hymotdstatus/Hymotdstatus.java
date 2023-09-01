@@ -18,24 +18,26 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
     public void onServerListPing(ServerListPingEvent event) {
         String[] motdLines = event.getMotd().split("\n");
 
-        World world = Bukkit.getWorlds().get(0);
+        if (motdLines.length >= 2) {
+            World world = Bukkit.getWorlds().get(0);
 
-        long dayCount = world.getFullTime() / 24000;
-        long time = world.getTime() / 1000;
-        boolean isStormy = world.hasStorm();
+            long dayCount = world.getFullTime() / 24000;
+            long time = world.getTime() / 1000;
+            boolean isStormy = world.hasStorm();
 
-        long hours = time / 3600;
-        long minutes = (time % 3600) / 60;
+            long hours = time / 3600;
+            long minutes = (time % 3600) / 60;
 
-        String timeString = String.format("%02d:%02d", hours, minutes);
-        String weatherString = isStormy ? "Thunder" : (world.isClearWeather() ? "Clear" : "Rain");
+            String timeString = String.format("%02d:%02d", hours, minutes);
+            String weatherString = isStormy ? "Thunder" : (world.isClearWeather() ? "Clear" : "Rain");
 
-        String customMOTDLine = "Day: " + dayCount + " - Time: " + timeString + " - Weather: " + weatherString;
+            String customMOTDLine = "Day: " + dayCount + " - Time: " + timeString + " - Weather: " + weatherString;
 
-        motdLines[1] = customMOTDLine;
+            motdLines[1] = customMOTDLine;
 
-        String updatedMOTD = String.join("\n", motdLines);
+            String updatedMOTD = String.join("\n", motdLines);
 
-        event.setMotd(updatedMOTD);
+            event.setMotd(updatedMOTD);
+        }
     }
 }
