@@ -24,18 +24,21 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
             World world = Bukkit.getWorlds().get(0);
 
             long dayCount = world.getFullTime() / 24000;
-            long time = world.getTime() / 1000;
+            long time = world.getTime();
             boolean isStormy = world.hasStorm();
 
-            long hours = time / 3600;
-            long minutes = (time % 3600) / 60;
+            long hours = (time / 1000) % 24;
+            long minutes = (time % 1000) * 60 / 1000;
 
-            String timeicon = (hours >= 6 && hours < 18) ? "\u2600" : "\u1F319";
-            String weathericon = isStormy ? "\u26C8" : (world.isClearWeather() ? "\u2600" : "\u1F327");
+            String timeicon = (hours >= 6 && hours < 18) ? "\u2600" : "\u263D";
+            String thunderEmoji = "\u26C8"; // Thunder emoji
+            String rainEmoji = "\uD83C\uDF27"; // Rain emoji
+            String cloudEmoji = "\u2601"; // Cloud emoji
+            String weathericon = isStormy ? thunderEmoji : (world.isClearWeather() ? cloudEmoji : rainEmoji);
             String line2color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#ffffff"));
 
             String timeString = String.format("%02d:%02d", hours, minutes);
-            String customMOTDLine = line2color + timeicon + " Day: " + dayCount + " - Time: " + timeString + " " + weathericon;
+            String customMOTDLine = line2color + timeicon + " Day: " + dayCount + " - " + weathericon + " Time: " + timeString;
 
             motdLines[1] = customMOTDLine;
 
