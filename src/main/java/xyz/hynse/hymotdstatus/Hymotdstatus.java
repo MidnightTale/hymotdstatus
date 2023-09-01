@@ -38,9 +38,10 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
             String line2color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#ffffff"));
 
             String timeString = String.format("%02d:%02d", hours, minutes);
-            String customMOTDLine = line2color + centerAlign(timeicon + " Day: " + dayCount + " - " + weathericon + " Time: " + timeString, 64);
+            String formattedLine = timeicon + " Day: " + dayCount + " - " + weathericon + " Time: " + timeString;
+            String centeredLine = centerAlign(formattedLine, 64);
 
-            motdLines[1] = customMOTDLine;
+            motdLines[1] = centeredLine;
 
             motd = String.join("\n", motdLines);
 
@@ -49,7 +50,7 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
     }
 
     private String centerAlign(String text, int maxLength) {
-        int totalSpaces = maxLength - text.length();
+        int totalSpaces = Math.max(0, maxLength - text.length());
         int leftSpaces = totalSpaces / 2;
         int rightSpaces = totalSpaces - leftSpaces;
         return " ".repeat(leftSpaces) + text + " ".repeat(rightSpaces);
