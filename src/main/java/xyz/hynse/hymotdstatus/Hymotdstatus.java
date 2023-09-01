@@ -9,11 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Hymotdstatus extends JavaPlugin implements Listener {
 
-    @Override
-    public void onEnable() {
-        getServer().getPluginManager().registerEvents(this, this);
-    }
-
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
         String motd = event.getMotd();
@@ -38,7 +33,7 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
             String line2color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#ffffff"));
 
             String timeString = String.format("%02d:%02d", hours, minutes);
-            String customMOTDLine = line2color + timeicon + " Day: " + dayCount + " - " + weathericon + " Time: " + timeString;
+            String customMOTDLine = line2color + centerAlign(timeicon + " Day: " + dayCount + " - " + weathericon + " Time: " + timeString, 64);
 
             motdLines[1] = customMOTDLine;
 
@@ -46,5 +41,12 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
 
             event.setMotd(motd);
         }
+    }
+
+    private String centerAlign(String text, int maxLength) {
+        int totalSpaces = maxLength - text.length();
+        int leftSpaces = totalSpaces / 2;
+        int rightSpaces = totalSpaces - leftSpaces;
+        return " ".repeat(leftSpaces) + text + " ".repeat(rightSpaces);
     }
 }
