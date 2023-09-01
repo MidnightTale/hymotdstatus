@@ -16,8 +16,10 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
-        String[] motdLines = event.getMotd().split("\n");
+        String motd = event.getMotd();
+        String[] motdLines = motd.split("\n");
 
+        // Check if there are at least 2 lines in the MOTD
         if (motdLines.length >= 2) {
             World world = Bukkit.getWorlds().get(0);
 
@@ -28,16 +30,18 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
             long hours = time / 3600;
             long minutes = (time % 3600) / 60;
 
-            String timeString = String.format("%02d:%02d", hours, minutes);
-            String weatherString = isStormy ? "Thunder" : (world.isClearWeather() ? "Clear" : "Rain");
+            String timeicon = (hours >= 6 && hours < 18) ? "\u2600" : "\u1F319";
+            String weathericon = isStormy ? "\u26C8" : (world.isClearWeather() ? "\u2600" : "\u1F327");
+            String line2color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#ffffff"));
 
-            String customMOTDLine = "Day: " + dayCount + " - Time: " + timeString + " - Weather: " + weatherString;
+            String timeString = String.format("%02d:%02d", hours, minutes);
+            String customMOTDLine = line2color + timeicon + " Day: " + dayCount + " - Time: " + timeString + " " + weathericon;
 
             motdLines[1] = customMOTDLine;
 
-            String updatedMOTD = String.join("\n", motdLines);
+            motd = String.join("\n", motdLines);
 
-            event.setMotd(updatedMOTD);
+            event.setMotd(motd);
         }
     }
 }
