@@ -9,6 +9,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Hymotdstatus extends JavaPlugin implements Listener {
 
+    @Override
+    public void onEnable() {
+        getServer().getPluginManager().registerEvents(this, this);
+    }
+
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
         String motd = event.getMotd();
