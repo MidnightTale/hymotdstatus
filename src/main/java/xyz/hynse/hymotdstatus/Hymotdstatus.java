@@ -1,6 +1,7 @@
 package xyz.hynse.hymotdstatus;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +17,7 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
+
         String motd = event.getMotd();
         String[] motdLines = motd.split("\n");
 
@@ -35,13 +37,16 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
             String rainEmoji = "\uD83C\uDF27"; // Rain emoji
             String cloudEmoji = "\u2601"; // Cloud emoji
             String weathericon = isStormy ? thunderEmoji : (world.isClearWeather() ? cloudEmoji : rainEmoji);
+            String line1color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#ff0000")); // Change this color code
             String line2color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#ffffff"));
 
-            String timeString = String.format("%02d:%02d", hours, minutes);
-            String formattedLine = line2color + timeicon + " Day: " + dayCount + " - " + weathericon + " Time: " + timeString;
-            String centeredLine = centerAlign(formattedLine, 64);
 
-            motdLines[1] = centeredLine;
+            String timeString = String.format("%02d:%02d", hours, minutes);
+            String formattedLine2 = line2color + timeicon + " Day: " + dayCount + " - " + weathericon + " Time: " + timeString;
+
+            formattedLine2 = centerAlign(formattedLine2, 64);
+
+            motdLines[1] = formattedLine2;
 
             motd = String.join("\n", motdLines);
 
