@@ -38,7 +38,7 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
             String line2color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#ffffff"));
 
             String timeString = String.format("%02d:%02d", hours, minutes);
-            String formattedLine = timeicon + " Day: " + dayCount + " - " + weathericon + " Time: " + timeString;
+            String formattedLine = line2color + timeicon + " Day: " + dayCount + " - " + weathericon + " Time: " + timeString;
             String centeredLine = centerAlign(formattedLine, 64);
 
             motdLines[1] = centeredLine;
