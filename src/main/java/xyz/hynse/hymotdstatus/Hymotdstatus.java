@@ -53,7 +53,7 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
             String spacerR = "\u2190                 ";
 
             String timeString = String.format("%02d:%02d", hours, minutes);
-            String formattedLine1 = line1_0color + strikethrough + spacerL + reset + line1_1color + playText + "." + line1_2color + bold + "HYNSE" + reset + line1_1color + "." + xyzText + line1_0color + strikethrough + spacerR + reset;
+            String formattedLine1 = line1_0color + strikethrough + spacerL + reset + line1_2color + playText + "." + line1_1color + bold + "HYNSE" + reset + line1_2color + "." + xyzText + line1_0color + strikethrough + spacerR + reset;
             String formattedLine2 = line2color + timeicon + " Day: " + dayCount + " - " + weathericon + " Time: " + timeString;
 
             // Center-align both lines
