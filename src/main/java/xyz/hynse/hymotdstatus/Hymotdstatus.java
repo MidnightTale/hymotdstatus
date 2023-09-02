@@ -39,16 +39,21 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
             String cloudEmoji = "\u2601"; // Cloud emoji
             String weathericon = isStormy ? thunderEmoji : (world.isClearWeather() ? cloudEmoji : rainEmoji);
             String line2color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#ffffff"));
+            String line1_0color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#4454dd"));
+            String line1_1color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#ffc5ff"));
+            String line1_2color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#b289b2"));
             String bold = ChatColor.BOLD.toString();
             String italic = ChatColor.ITALIC.toString();
             String reset = ChatColor.RESET.toString();
-            String playText = "\u1d18\u029f\u1d00\u028f"; // "play"
-            String xyzText = "x\u028f\u1d22"; // "xyz"
-            String spacerL = "\u2588\u00a7m                \u2192";
-            String spacerR = "\u00a7m\u2190                \u2588";
+            String strikethrough = ChatColor.STRIKETHROUGH.toString();
+            String playText = "  \u1d18\u029f\u1d00\u028f"; // "play"
+            String xyzText = "x\u028f\u1d22  "; // "xyz"
+            String square = "\u2588";
+            String spacerL = "                \u2192";
+            String spacerR = "\u2190                 ";
 
             String timeString = String.format("%02d:%02d", hours, minutes);
-            String formattedLine1 = spacerL + playText + "." + bold + "HYNSE" + reset + "." + xyzText + spacerR;
+            String formattedLine1 = line1_0color + strikethrough + spacerL + reset + line1_1color + playText + "." + line1_2color + bold + "HYNSE" + reset + line1_1color + "." + xyzText + line1_0color + strikethrough + spacerR + reset;
             String formattedLine2 = line2color + timeicon + " Day: " + dayCount + " - " + weathericon + " Time: " + timeString;
 
             // Center-align both lines
@@ -70,4 +75,41 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
         int rightSpaces = totalSpaces - leftSpaces;
         return " ".repeat(leftSpaces) + text + " ".repeat(rightSpaces);
     }
+    private String convertHexToGradient(String text) {
+        String[] hexCodes = text.split("-");
+        StringBuilder gradientText = new StringBuilder();
+
+        String previousColor = null;
+
+        for (String hexCode : hexCodes) {
+            String color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#" + hexCode.toLowerCase()));
+            if (previousColor == null) {
+                gradientText.append(color);
+            } else {
+                gradientText.append(previousColor).append(hexColorTransition(previousColor, color));
+            }
+
+            previousColor = color;
+        }
+
+        return gradientText.toString();
+    }
+
+    private String hexColorTransition(String startColor, String endColor) {
+        ChatColor reset = ChatColor.RESET;
+        String[] colors = new String[]{String.valueOf(net.md_5.bungee.api.ChatColor.values())};
+
+        for (int i = 0; i < colors.length; i++) {
+            if (colors[i] == startColor) {
+                int nextIndex = (i + 1) % colors.length;
+                String nextColor = colors[nextIndex];
+                if (nextColor == endColor) {
+                    return nextColor.toString();
+                }
+            }
+        }
+
+        return reset.toString();
+    }
+
 }
