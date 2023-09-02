@@ -17,6 +17,7 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
+        // -*- coding: utf-8 -*-
 
         String motd = event.getMotd();
         String[] motdLines = motd.split("\n");
@@ -37,15 +38,24 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
             String rainEmoji = "\uD83C\uDF27"; // Rain emoji
             String cloudEmoji = "\u2601"; // Cloud emoji
             String weathericon = isStormy ? thunderEmoji : (world.isClearWeather() ? cloudEmoji : rainEmoji);
-            String line1color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#ff0000")); // Change this color code
             String line2color = String.valueOf(net.md_5.bungee.api.ChatColor.of("#ffffff"));
-
+            String bold = ChatColor.BOLD.toString();
+            String italic = ChatColor.ITALIC.toString();
+            String reset = ChatColor.RESET.toString();
+            String playText = "\u1d18\u029f\u1d00\u028f"; // "play"
+            String xyzText = "x\u028f\u1d22"; // "xyz"
+            String spacerL = "\u2588\u00a7m                \u2192";
+            String spacerR = "\u00a7m\u2190                \u2588";
 
             String timeString = String.format("%02d:%02d", hours, minutes);
+            String formattedLine1 = spacerL + playText + "." + bold + "HYNSE" + reset + "." + xyzText + spacerR;
             String formattedLine2 = line2color + timeicon + " Day: " + dayCount + " - " + weathericon + " Time: " + timeString;
 
+            // Center-align both lines
+            formattedLine1 = centerAlign(formattedLine1, 64);
             formattedLine2 = centerAlign(formattedLine2, 64);
 
+            motdLines[0] = formattedLine1;
             motdLines[1] = formattedLine2;
 
             motd = String.join("\n", motdLines);
