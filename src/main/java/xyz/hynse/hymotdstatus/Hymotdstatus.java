@@ -30,7 +30,7 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
             long time = world.getTime();
             boolean isStormy = world.hasStorm();
 
-            long hours = (time / 1000) % 24;
+            long hours = (time / 1000 + 6) % 24; // Adjusted to start from 06:00
             long minutes = (time % 1000) * 60 / 1000;
 
             String timeicon = (hours >= 6 && hours < 18) ? "\u2600" : "\u263D";
