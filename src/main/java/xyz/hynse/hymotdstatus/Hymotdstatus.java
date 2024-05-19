@@ -18,7 +18,7 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
-        World world = Bukkit.getWorlds().get(0);
+        World world = Bukkit.getWorlds().getFirst();
         long dayCount = world.getFullTime() / 24000;
         long time = world.getTime();
         boolean isStormy = world.hasStorm();
@@ -26,20 +26,20 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
         long hours = (time / 1000 + 6) % 24; // Adjusted to start from 06:00
         long minutes = (time % 1000) * 60 / 1000;
 
-        String timeicon = (hours >= 6 && hours < 18) ? "☀" : "☽";
-        String thunderEmoji = "⛈"; // Thunder emoji
+        String timeicon = (hours >= 6 && hours < 18) ? "\u2600" : "\u263D";
+        String thunderEmoji = "\u26C8"; // Thunder emoji
         String rainEmoji = "\uD83C\uDF27"; // Rain emoji
-        String cloudEmoji = "☁"; // Cloud emoji
+        String cloudEmoji = "\u2601"; // Cloud emoji
         String weathericon = isStormy ? thunderEmoji : (world.isClearWeather() ? cloudEmoji : rainEmoji);
         NamedTextColor lineColor = NamedTextColor.WHITE;
         NamedTextColor playColor = ColorUtil.fromHexString("#4454dd");
         NamedTextColor boldColor = ColorUtil.fromHexString("#ffc5ff");
         NamedTextColor xyzColor = ColorUtil.fromHexString("#b289b2");
         NamedTextColor resetColor = NamedTextColor.WHITE;
-        String playText = "  ᴘʟᴀʏ"; // "play"
-        String xyzText = "xʏᴢ  "; // "xyz"
-        String spacerL = "                →";
-        String spacerR = "←                 ";
+        String playText = "  \u1D18\u029F\u1D00\u028F"; // "play"
+        String xyzText = "x\u028F\u1D22  "; // "xyz"
+        String spacerL = "                \u2192";
+        String spacerR = "\u2190                 ";
 
         String timeString = String.format("%02d:%02d", hours, minutes);
         String formattedLine1 = spacerR + resetColor + playColor + playText + boldColor + "HYNSE" + xyzColor + xyzText + playColor + spacerL + resetColor;
