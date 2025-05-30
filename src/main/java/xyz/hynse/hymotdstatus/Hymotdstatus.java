@@ -35,7 +35,7 @@ public final class Hymotdstatus extends JavaPlugin implements Listener {
         String cloudEmoji = "☁"; // Cloud emoji ☰
         String weathericon = isStormy ? thunderEmoji : (world.isClearWeather() ? cloudEmoji : rainEmoji);
 
-        Component formattedLine1 = miniMessage.deserialize("<gradient:#FF0000:#FF7F00:#FFFF00:#00FF00:#0000FF:#BB6CF5:#D1A4FF><bold>             </bold></gradient> <#4c53d9>ᴘʟᴀʏ.<bold><#7278f7>VOXELSTELLAR</bold>.<#4c53d9>ɴᴇᴛ <gradient:#D1A4FF:#BB6CF5:#0000FF:#00FF00:#FFFF00:#FF7F00:#FF0000><bold>             </bold></gradient>");
+        Component formattedLine1 = miniMessage.deserialize("<gradient:#FF0000:#FF7F00:#FFFF00:#00FF00:#0000FF:#BB6CF5:#D1A4FF><bold>           </bold></gradient> <#4c53d9>ᴘʟᴀʏ.<bold><#6f75fc>VOXELSTELLAR</bold>.<#4c53d9>ɴᴇᴛ <gradient:#D1A4FF:#BB6CF5:#0000FF:#00FF00:#FFFF00:#FF7F00:#FF0000><bold>           </bold></gradient>");
         Component formattedLine2 = miniMessage.deserialize("<#5357ad>" + timeicon + " Day: " + dayCount + " - " + weathericon + "Time: " + String.format("%02d:%02d", hours, minutes));
         // Center-align line 2
         formattedLine2 = centerAlign(formattedLine2);
